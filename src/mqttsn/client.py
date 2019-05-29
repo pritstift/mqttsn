@@ -119,7 +119,7 @@ class Client:
     def register_callback(self, callback):
         self.callback = callback
 
-    def connect(self, clean_session=True):
+    def connect(self, clean_session=True, keepalive=30):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         # self.sock.settimeout(5.0)
 
@@ -130,6 +130,7 @@ class Client:
         connect = Connects()
         connect.client_id = self.client_id
         connect.clean_session = clean_session
+        connect.duration = keepalive
         connect.keepalive_timer = 0
         self.sock.send(connect.pack())
 
